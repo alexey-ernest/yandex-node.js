@@ -205,7 +205,7 @@ function sum(n, a) {
 }
 
 
-
+// Generating input array
 var i = 0,
     len = 100,
     data = [];
@@ -216,10 +216,14 @@ for (i = 0; i < len; i+=1) {
 var sum10 = sum(10, data);
 console.log('Sums of 10: ', sum10.length);
 
-// checking
+// validating result
 for (i = 0, len = sum10.length; i < len; i+=1) {
   sum = sum10[i].reduce(function (current, i) {
     return current + data[i];
   }, 0);
   assert(sum === 10);
 }
+
+var sumr = require('./sum10r');
+var sum10r = sumr(10, data);
+console.log('Sums of 10 (recurrent): ', sum10r.length);
