@@ -1,6 +1,5 @@
-
 /**
- * Finds all subsets of sum n.
+ * Recurrent algorithm of finding all subsets of sum n.
  *
  * @param      {number}  n       Required sum.
  * @param      {Array}   data    Input data array.
