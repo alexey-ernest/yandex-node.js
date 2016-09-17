@@ -1,4 +1,3 @@
-var assert = require('assert');
 
 /**
  * P(n) - decomposes number into summands.
@@ -98,7 +97,7 @@ function permutations(n, k) {
 }
 
 /**
- * Finds all combinations with sum n
+ * Finds all combinations with sum n.
  *
  * @param      {Number}  n       Sum.
  * @param      {Array}   a       Input array of integer values.
@@ -118,7 +117,7 @@ function sum(n, a) {
   }
 
   // decompose sum into summands
-  var dec = decompose(n, n-1);
+  var dec = decompose(n, n);
 
   var sums = [],
       nums,
@@ -205,25 +204,28 @@ function sum(n, a) {
 }
 
 
-// Generating input array
-var i = 0,
-    len = 100,
-    data = [];
-for (i = 0; i < len; i+=1) {
-  data[i] = (1 + Math.random() * 9) | 0;
+// CLI interface
+if (process.argv.length > 2) {
+  var assert = require('assert');
+
+  // reading from input
+  var n = +process.argv[2],
+      data = JSON.parse(process.argv[3]);
+
+  var sums = sum(n, data);
+
+  console.log('Sums: ', sums.length);
+
+  // validating results
+  var i,
+      len = sums.length,
+      sum;
+  for (i = 0; i < len; i+=1) {
+    sum = sums[i].reduce(function (current, idx) {
+      return current + data[idx];
+    }, 0); 
+    assert(sum === n);
+  }
 }
 
-var sum10 = sum(10, data);
-console.log('Sums of 10: ', sum10.length);
-
-// validating result
-for (i = 0, len = sum10.length; i < len; i+=1) {
-  sum = sum10[i].reduce(function (current, i) {
-    return current + data[i];
-  }, 0);
-  assert(sum === 10);
-}
-
-var sumr = require('./sum10r');
-var sum10r = sumr(10, data);
-console.log('Sums of 10 (recurrent): ', sum10r.length);
+module.exports = sum;

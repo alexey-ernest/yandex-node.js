@@ -1,5 +1,12 @@
-var assert = require('assert');
 
+/**
+ * Finds all subsets of sum n.
+ *
+ * @param      {number}  n       Required sum.
+ * @param      {Array}   data    Input data array.
+ * @param      {number}  i       Current data index.
+ * @return     {Array}   Array of subsets.
+ */
 function sum(n, data, i) {
   if (typeof i === 'undefined') {
     i = 0;
@@ -21,7 +28,11 @@ function sum(n, data, i) {
   return sums;
 }
 
+// CLI interface
 if (process.argv.length > 2) {
+  var assert = require('assert');
+
+  // reading from input
   var n = +process.argv[2],
       data = JSON.parse(process.argv[3]);
 
@@ -31,11 +42,11 @@ if (process.argv.length > 2) {
 
   // validating results
   var i,
-      len = data.length,
+      len = sums.length,
       sum;
   for (i = 0; i < len; i+=1) {
-    sum = sums[i].reduce(function (current, i) {
-      return current + data[i];
+    sum = sums[i].reduce(function (current, idx) {
+      return current + data[idx];
     }, 0); 
     assert(sum === n);
   }
